@@ -14,14 +14,12 @@ export default function GoogleSignIn({ onLogin }) {
         credential: response.credential,
       });
 
-        const { token, user } = result.data;
-        console.log("CityPulse logged-in user:", user);
+      const { token, user } = result.data;
 
       if (!token || !user) {
         throw new Error("Backend did not return a token and user.");
       }
 
-      // App.jsx updates the login state and stores the token.
       onLogin?.({ user, token });
     } catch (error) {
       console.error(
@@ -38,13 +36,15 @@ export default function GoogleSignIn({ onLogin }) {
   };
 
   return (
-    <GoogleLogin
-      onSuccess={handleSuccess}
-      onError={() => console.error("Google sign-in was unsuccessful.")}
-      text="continue_with"
-      shape="rectangular"
-      theme="outline"
-      width="280"
-    />
+    <div className="google-signin-wrapper">
+      <GoogleLogin
+        onSuccess={handleSuccess}
+        onError={() => console.error("Google sign-in was unsuccessful.")}
+        text="continue_with"
+        shape="rectangular"
+        theme="outline"
+        width="280"
+      />
+    </div>
   );
 }
